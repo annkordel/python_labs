@@ -8,4 +8,5 @@ wheels/
 
 # Virtual environments
 .venv
-measurements_1k.txt
+*.txt
+*.out
