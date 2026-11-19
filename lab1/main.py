@@ -22,6 +22,8 @@ def collect_information(file_path: str) -> dict:
                     continue
 
                 station_bytes, semicolon, temperature_bytes=line.partition(b";")
+                if not temperature_bytes:
+                    continue
                 temperature= int(temperature_bytes.replace(b".", b""))
 
                 if station_bytes not in information :
@@ -38,10 +40,10 @@ def collect_information(file_path: str) -> dict:
     return information
 
 def print_information(information:dict) -> None:
-        for station_bytes in sorted(information, key = lambda x: x.decode("utf-8")):
+        for station_bytes in sorted(information, key = lambda x: x.decode("utf-8", errors="ignore")):
             inf_of_station=information[station_bytes]
             mean = inf_of_station[1]/inf_of_station[2]
-            station = station_bytes.decode("utf-8")
+            station = station_bytes.decode("utf-8", errors="ignore")
             print(f"{station};{inf_of_station[0]/10:.1f};{mean/10:.1f};{inf_of_station[3]/10:.1f}")
 
 if __name__ == "__main__":
