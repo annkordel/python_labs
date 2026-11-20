@@ -43,9 +43,9 @@ def collect_information(file_path: str) -> dict:
 def print_information(information:dict) -> None:
         for station_bytes in sorted(information, key = lambda x: x.decode("utf-8", errors="ignore")):
             inf_of_station=information[station_bytes]
-            mean = inf_of_station[1]/inf_of_station[2]
+            mean = ((inf_of_station[1]/inf_of_station[2])*10+0.5)//1/10
             station = station_bytes.decode("utf-8", errors="ignore")
-            print(f"{station};{inf_of_station[0]/10:.1f};{mean/10:.1f};{inf_of_station[3]/10:.1f}")
+            print(f"{station};{inf_of_station[0]/10:.1f};{mean:.1f};{inf_of_station[3]/10:.1f}")
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
