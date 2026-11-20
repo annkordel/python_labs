@@ -11,7 +11,7 @@ def collect_information(file_path: str) -> dict:
             if not chunk:
                 break
 
-            chunk+=tail
+            chunk=tail + chunk
             lines=chunk.split(b"\n")
             tail=lines.pop()
 
@@ -22,7 +22,8 @@ def collect_information(file_path: str) -> dict:
                     continue
 
                 station_bytes, semicolon, temperature_bytes=line.partition(b";")
-                if not temperature_bytes:
+                station_bytes = station_bytes.strip()
+                if not station_bytes or not temperature_bytes:
                     continue
                 temperature= int(temperature_bytes.replace(b".", b""))
 
